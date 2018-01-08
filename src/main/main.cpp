@@ -4,11 +4,8 @@
 using namespace std;
 
 int main(){
-	LoadFile loadFile("this is file name");
-	TMASInformation jobsImformation;
-	jobsImformation = loadFile.load();
-	cout << jobsImformation.getPCount() <<endl;
-	cout << jobsImformation.getTCount() <<endl;
-	cout << jobsImformation.getECount() <<endl;
+	LoadFile loadFile("n4_00.dag");
+	TMASInformation jobsInformation;
+	jobsInformation = loadFile.load();
 	return 0;
 }

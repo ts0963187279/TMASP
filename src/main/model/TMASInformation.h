@@ -11,8 +11,17 @@ class TMASInformation {
 	void setTCount(int);
 	int getECount();
 	void setECount(int);
+	double getCommRate(int,int);
+	void setCommRate(double **);
+	double getCompCost(int,int);
+	void setCompCost(double **);
+	int getTransDataVol(int,int);
+	void setTransDataVol(int **);
  private :
 	int _thePCount;
 	int _theTCount;
 	int _theECount;
+	double **_theCommRate;
+	double **_theCompCost;
+	int **_theTransDataVol;
 };
