@@ -2,11 +2,18 @@
 using namespace std;
 class Task{
  public :
-	bool isfinish();
-	void setFinishTime(int);
+	Task();
+	bool isFinish();
 	void setStartTime(int);
+	int getStartTime();
+	void setFinishTime(int);
+	int getFinishTime();
+	void setPRED(list<int>);
+	void setEarliestStartTime(int);
+	list<int> getPRED();
  private :
-	list<int> PRED;
-	int _finishTime;
+	list<int> _PRED;
+	int _earliestStartTime;
 	int _startTime;
+	int _finishTime;
 };

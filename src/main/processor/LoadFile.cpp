@@ -12,7 +12,7 @@ string LoadFile::getFileName(){
 }
 TMASInformation LoadFile::load(){
 	TMASInformation jobsInformation;
-	_file.open(_fileName,ios::in);
+	_file.open(_fileName.c_str(),ios::in);
 	jumpToNextPart();
 	readBasicInformation(&jobsInformation);
 	jumpToNextPart();
