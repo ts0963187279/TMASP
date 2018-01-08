@@ -1,6 +1,7 @@
 test: main.o
 	g++ -o test main.o
-main.o: main.cpp
-	g++ -c main.cpp
+	rm *.o
+main.o: src/main/main.cpp	
+	g++ -c src/main/main.cpp
 clean:
-	del *.o
+	rm *.o
