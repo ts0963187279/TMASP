@@ -2,6 +2,7 @@
 #include <list>
 #include "processor/LoadFile.cpp"
 #include "processor/Evaluator.cpp"
+#include "processor/GA.cpp"
 using namespace std;
 
 int main(){
@@ -48,5 +49,6 @@ int main(){
 	int cost =  evaluator.getCost(schedulingString,mappingString);
 	TimeLine *timeLine = evaluator.getTimeLine();
 	timeLine->showGanttChart(cost);
+	GA ga(100,500,jobsInformation);
 	return 0;
 }
