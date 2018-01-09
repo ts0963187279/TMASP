@@ -8,7 +8,7 @@ class Task{
 	int getStartTime();
 	void setFinishTime(int);
 	int getFinishTime();
-	void setPRED(list<int>);
+	void addPRED(int);
 	void setEarliestStartTime(int);
 	list<int> getPRED();
  private :

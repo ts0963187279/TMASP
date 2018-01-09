@@ -22,8 +22,8 @@ void Task::setFinishTime(int finishTime){
 int Task::getFinishTime(){
 	return _finishTime;
 }
-void Task::setPRED(list<int> PRED){
-	_PRED = PRED;
+void Task::addPRED(int PRED){
+	_PRED.push_back(PRED);
 }
 void Task::setEarliestStartTime(int earliestStartTime){
 	if(earliestStartTime > _earliestStartTime){

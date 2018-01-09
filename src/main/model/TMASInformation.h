@@ -1,7 +1,7 @@
 #include <string>
 
 using namespace std;
-
+class Task;
 class TMASInformation {
  public :
 	TMASInformation();
@@ -11,12 +11,14 @@ class TMASInformation {
 	void setTCount(int);
 	int getECount();
 	void setECount(int);
-	double getCommRate(int,int);
+	double **getCommRate();
 	void setCommRate(double **);
-	double getCompCost(int,int);
+	double **getCompCost();
 	void setCompCost(double **);
-	int getTransDataVol(int,int);
+	int **getTransDataVol();
 	void setTransDataVol(int **);
+	Task* getTasks();
+	void setTasks(Task*);
  private :
 	int _thePCount;
 	int _theTCount;
@@ -24,4 +26,6 @@ class TMASInformation {
 	double **_theCommRate;
 	double **_theCompCost;
 	int **_theTransDataVol;
+	Task* _tasks;
 };
+

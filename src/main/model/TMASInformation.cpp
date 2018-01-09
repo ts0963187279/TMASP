@@ -1,7 +1,6 @@
 #include <string>
 #include "TMASInformation.h"
 using namespace std;
-
 TMASInformation::TMASInformation(){
 	_thePCount = 0;
 	_theTCount = 0;
@@ -25,21 +24,27 @@ int TMASInformation::getECount(){
 void TMASInformation::setECount(int eCount){
 	_theECount = eCount;
 }
-double TMASInformation::getCommRate(int pFrom,int pTo){
-	return _theCommRate[pFrom][pTo];
+double **TMASInformation::getCommRate(){
+	return _theCommRate;
 }
 void TMASInformation::setCommRate(double **commRate){
 	_theCommRate = commRate;
 }
-double TMASInformation::getCompCost(int tID,int pID){
-	return _theCompCost[tID][pID];
+double **TMASInformation::getCompCost(){
+	return _theCompCost;
 }
 void TMASInformation::setCompCost(double **compCost){
 	_theCompCost = compCost;
 }
-int TMASInformation::getTransDataVol(int tFrom,int tTo){
-	return _theTransDataVol[tFrom][tTo];
+int **TMASInformation::getTransDataVol(){
+	return _theTransDataVol;
 }
 void TMASInformation::setTransDataVol(int **transDataVol){
 	_theTransDataVol = transDataVol;
+}
+void TMASInformation::setTasks(Task* tasks){
+	_tasks = tasks;
+}
+Task* TMASInformation:: getTasks(){
+	return _tasks;
 }

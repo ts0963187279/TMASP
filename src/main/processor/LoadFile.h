@@ -2,6 +2,7 @@
 #include <fstream>
 using namespace std;
 class TMASInformation;
+class Task;
 class LoadFile {
  public :
     LoadFile(string);
@@ -15,4 +16,5 @@ class LoadFile {
  private :
 	string _fileName;
 	fstream _file;
+	Task* _tasks;
 };
