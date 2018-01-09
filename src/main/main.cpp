@@ -22,33 +22,21 @@ int main(){
 	cout << jobsInformation.getTCount()<<endl;
 	cout << jobsInformation.getECount()<<endl;
 	Evaluator evaluator(jobsInformation);
-	int * schedulingString = new int[12];
-	schedulingString[0] = 0;
-	schedulingString[1] = 1;
-	schedulingString[2] = 3;
-	schedulingString[3] = 2;
-	schedulingString[4] = 4;
-	schedulingString[5] = 7;
-	schedulingString[6] = 5;
-	schedulingString[7] = 6;
-	schedulingString[8] = 8;
-	schedulingString[9] = 9;
-	schedulingString[10] = 10;
-	int * mappingString = new int[12];
-	mappingString[0] = 0;
-	mappingString[1] = 3;
-	mappingString[2] = 0;
-	mappingString[3] = 1;
-	mappingString[4] = 2;
-	mappingString[5] = 3;
-	mappingString[6] = 0;
-	mappingString[7] = 1;
-	mappingString[8] = 1;
-	mappingString[9] = 0;
-	mappingString[10] = 0;
+	//	int * schedulingString = new int[20];
+	//	for(int i=0;i<20;i++){
+	//	schedulingString[i] = i;
+	//	}
+	//	int * mappingString = new int[20];
+	//	for(int i=0;i<20;i++){
+	//		mappingString[i] = i%4;
+	//	}
+	int schedulingString[11]{0,1,3,2,4,7,5,6,8,9,10};
+	int mappingString[11]{0,3,0,1,2,3,0,1,1,0,0};
+	
 	int cost =  evaluator.getCost(schedulingString,mappingString);
 	TimeLine *timeLine = evaluator.getTimeLine();
 	timeLine->showGanttChart(cost);
-	GA ga(100,500,jobsInformation);
+	cout << cost <<endl;
+	GA ga(100,20,jobsInformation);
 	return 0;
 }

@@ -18,6 +18,9 @@ class Evaluator{
 	int *_startTime;
 	int *_finishTime;
 	int **_transDataVol;
+	double **_commRate;
 	double **_compCost;
-	TimeLine	*_timeLine;
+	TimeLine *_timeLine;
+	int *_schedulingString;
+	int *_mappingString;
 };

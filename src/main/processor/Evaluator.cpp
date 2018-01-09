@@ -6,11 +6,14 @@ Evaluator::Evaluator(TMASInformation jobsInformation){
 	_tasks = jobsInformation.getTasks();
 	_transDataVol = jobsInformation.getTransDataVol();
 	_compCost = jobsInformation.getCompCost();
+	_commRate = jobsInformation.getCommRate();
 	_done = new bool[_theTCount];
 	_startTime = new int[_theTCount];
 	_finishTime = new int[_theTCount];
 }
 int Evaluator::getCost(int *schedulingString,int *mappingString){
+	_schedulingString = schedulingString;
+	_mappingString = mappingString;
 	_cost = 0;
 	_timeLine = new TimeLine(_thePCount);
   	for(int i=1;i<_theTCount;i++){
@@ -37,7 +40,7 @@ int Evaluator::getCost(int *schedulingString,int *mappingString){
 			_cost = 1e9;
 		}
 	}
-	return _cost;
+	return _cost + 1;
 }
 bool Evaluator::arePREDDone(int task){
 	list<int> PRED = _tasks[task].getPRED();
@@ -54,8 +57,12 @@ int Evaluator::getEarlistStartTime(int task){
 	list<int> PRED = _tasks[task].getPRED();
 	list<int>::iterator PREDIterator;
 	for(PREDIterator=PRED.begin();PREDIterator!=PRED.end();PREDIterator++){
-		if(_finishTime[*PREDIterator] + _transDataVol[*PREDIterator][task] > earliestStartTime)
-			earliestStartTime = _finishTime[*PREDIterator] + _transDataVol[*PREDIterator][task];
+		int isSameProcessor = 1;
+		if(_mappingString[task] == _mappingString[*PREDIterator]){
+			isSameProcessor = 0;
+		}
+		if(_finishTime[*PREDIterator] + _transDataVol[*PREDIterator][task] * isSameProcessor > earliestStartTime)
+			earliestStartTime = _finishTime[*PREDIterator] + _transDataVol[*PREDIterator][task] * isSameProcessor;
 	}
 	return earliestStartTime;
 }
