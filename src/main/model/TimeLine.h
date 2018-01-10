@@ -1,11 +1,11 @@
 using namespace std;
+class TimeNode;
 class TimeLine{
  public :
 	TimeLine(int);
-	void setTask(int,int,int&,int&);
-	bool hadTask(int,int,int);
-	void showGanttChart(int);
+	void setTask(int,int,double&,double&);
+	void showGraph();
  private :
-	int** _processor;
+	TimeNode** _processor;
 	int _numberOfProcessor;
 };

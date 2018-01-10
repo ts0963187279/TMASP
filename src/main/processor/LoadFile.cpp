@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 #include "LoadFile.h"
 #include "../model/TMASInformation.cpp"
 #include "../model/Task.cpp"

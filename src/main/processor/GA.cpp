@@ -36,7 +36,7 @@ int GA::run(){
 		mutation();
 		calculationFitness();	
 		selection();
-		//		cout << "Generation " << i << " Best : "<< _allFitness[0] <<endl;
+		cout << "Generation " << i << " Best : "<< _allFitness[0] <<endl;
 	}
 	return _allFitness[0];
 }
@@ -79,12 +79,6 @@ void GA::initialGroup(){
 			for(int k=0;k<tmp;k++)
 				put(_schedulingGroup[i],SUCC[k],isTaskExist,pointer);
 		}
-		//		for(int j=0;j<_tCount;j++)
-			// cout << _schedulingGroup[i][j] << " ";
-		// cout << endl;
-			//		for(int j=0;j<_tCount;j++)
-			// cout << _mappingGroup[i][j] << " ";
-		// cout << endl;
 	}
 }
 void GA::calculationFitness(){
@@ -134,16 +128,6 @@ void GA::crossover(){
 		_crossoverSchedulingGroup[i] = new int [_tCount];
 		_crossoverMappingGroup[i] = new int [_tCount];
 		crossoverOperator(_schedulingGroup[randomA],_mappingGroup[randomA],_schedulingGroup[randomB],_mappingGroup[randomB],_crossoverSchedulingGroup[i],_crossoverMappingGroup[i]);
-		// cout << "parent A : ";
-		//		for(int j=0;j<_tCount;j++)
-			// cout << _schedulingGroup[randomA][j] << " ";
-		// cout <<endl << "parent B : ";
-			//		for(int j=0;j<_tCount;j++)
-			// cout << _schedulingGroup[randomB][j] << " ";
-		// cout <<endl << "child : ";
-			//		for(int j=0;j<_tCount;j++)
-			// cout << _crossoverSchedulingGroup[i][j] << " ";
-		// cout << endl;
 	}
 }
 void GA::mutation(){
@@ -158,13 +142,6 @@ void GA::mutation(){
 			_mutationMappingGroup[i][j] = _mappingGroup[randomA][j];
 		}
 		_mutationMappingGroup[i][randomPosition] = randomProcessor;
-		//		cout << "mParent : ";
-		//		for(int j=0;j<_tCount;j++)
-		//	cout << _mappingGroup[randomA][j] <<" ";
-		//		cout << endl << "child : ";
-		//		for(int j=0;j<_tCount;j++)
-		//			cout << _mutationMappingGroup[i][j] << " ";
-		//		cout << endl;
 	}
 }
 void GA::put(int * sS,int task, bool *isTaskExist, int &pointer){

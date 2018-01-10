@@ -24,6 +24,7 @@ int main(){
 	cout << ga.run() << endl;;
 	double end = clock();
 	cout << "GA spend : "<< (end -start)/ CLOCKS_PER_SEC << " seconds"<<endl;
+	
 	return 0;
 }
 
