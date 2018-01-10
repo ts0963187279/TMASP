@@ -1,6 +1,6 @@
 #include "TimeLine.h"
 using namespace std;
-#define TIMEMAX  9999
+#define TIMEMAX  2000
 TimeLine::TimeLine(int numberOfProcessor){
 	_numberOfProcessor = numberOfProcessor;
 	_processor = new int*[numberOfProcessor];
@@ -11,7 +11,7 @@ TimeLine::TimeLine(int numberOfProcessor){
 		}
 	}
 }
-void TimeLine::setTask(int task,int processor,int& start,int& finish){
+void TimeLine::setTask(int task,int processor,double& start,double& finish){
 	while(hadTask(processor,start,finish)){
 	start += 1;
 	finish += 1;

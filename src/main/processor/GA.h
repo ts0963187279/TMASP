@@ -1,20 +1,27 @@
 using namespace std;
 class TMASInformation;
+class Evaluator;
+class Task;
 class GA {
  public:
 	GA(int,int,TMASInformation);
-	int calculationFitness();
-	void run();
+	void calculationFitness();
+	int run();
 	void initialGroup();
 	void selection();
 	void crossover();
 	void mutation();
-	void crossoverOperator(int *,int *,int *,int *);
+	void put(int *,int, bool *,int &);
+	void crossoverOperator(int *,int *,int *,int *,int *,int *);
  private:
 	double _mutationRate;
 	double _crossoverRate;
 	int ** _schedulingGroup;
 	int ** _mappingGroup;
+	int ** _crossoverSchedulingGroup;
+	int ** _crossoverMappingGroup;
+	int ** _mutationSchedulingGroup;
+	int ** _mutationMappingGroup;
 	int ** _selectionSchedulingGroup;
 	int ** _selectionMappingGroup;
 	int * _crossoverSchedulingString;
@@ -23,5 +30,12 @@ class GA {
 	int _maxGeneration;
 	int _groupSize;
 	TMASInformation *_jobsInformation;
+	Evaluator * _evaluator;
+	Task *_tasks;
+	int *_allFitness;
 	int _tCount;
+	int _pCount;
+	int _count;
+	int _crossoverSize;
+	int _mutationSize;
 };

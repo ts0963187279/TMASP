@@ -8,8 +8,8 @@ Evaluator::Evaluator(TMASInformation jobsInformation){
 	_compCost = jobsInformation.getCompCost();
 	_commRate = jobsInformation.getCommRate();
 	_done = new bool[_theTCount];
-	_startTime = new int[_theTCount];
-	_finishTime = new int[_theTCount];
+	_startTime = new double[_theTCount];
+	_finishTime = new double[_theTCount];
 }
 int Evaluator::getCost(int *schedulingString,int *mappingString){
 	_schedulingString = schedulingString;
@@ -26,13 +26,12 @@ int Evaluator::getCost(int *schedulingString,int *mappingString){
 	_done[0] = true;
 	for(int i=0;i<_theTCount;i++){
 		if(arePREDDone(schedulingString[i])){
-			int startTime = getEarlistStartTime(schedulingString[i]);
-			int finishTime = startTime + _compCost[schedulingString[i]][mappingString[schedulingString[i]]];
+			double startTime = getEarlistStartTime(schedulingString[i]);
+			double finishTime = startTime + _compCost[schedulingString[i]][mappingString[schedulingString[i]]];
 			_timeLine->setTask(schedulingString[i],mappingString[schedulingString[i]],startTime,finishTime);
 			if(finishTime > _cost){
 				_cost = finishTime;
 			}
-			cout <<"task : "<< schedulingString[i] <<" at processor : "<< mappingString[schedulingString[i]]<<" start : " << startTime << " finish : "<< finishTime<<endl;
 			_finishTime[schedulingString[i]] = finishTime;
 			_startTime[schedulingString[i]] = startTime;
 			_done[schedulingString[i]] = true;

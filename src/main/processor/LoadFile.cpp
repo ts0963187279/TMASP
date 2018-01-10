@@ -14,6 +14,10 @@ string LoadFile::getFileName(){
 TMASInformation LoadFile::load(){
 	TMASInformation jobsInformation;
 	_file.open(_fileName.c_str(),ios::in);
+	if(!_file.is_open()){
+		cout << "fuck you Wrong file name" <<endl;
+		exit(0);
+	}
 	jumpToNextPart();
 	readBasicInformation(&jobsInformation);
 	jumpToNextPart();
@@ -42,9 +46,9 @@ void LoadFile::readBasicInformation(TMASInformation* jobsInformation){
 	jobsInformation->setTCount(inputInt);
 	_file >> inputInt;
 	jobsInformation->setECount(inputInt);
-	cout << jobsInformation->getPCount()<<endl;
-	cout << jobsInformation->getTCount()<<endl;
-	cout << jobsInformation->getECount()<<endl;
+	//	cout << jobsInformation->getPCount()<<endl;
+	//	cout << jobsInformation->getTCount()<<endl;
+	//	cout << jobsInformation->getECount()<<endl;
 }
 void LoadFile::readCommRate(TMASInformation* jobsInformation){
 	double inputDouble;
@@ -55,9 +59,9 @@ void LoadFile::readCommRate(TMASInformation* jobsInformation){
 		for(int j=0;j<jobsInformation->getPCount();j++){
 			_file >> inputDouble;
 			commRate[i][j] = inputDouble;
-			cout << commRate[i][j] << " ";
+			//	cout << commRate[i][j] << " ";
 		}
-		cout << endl;
+		//		cout << endl;
 	}
 	jobsInformation->setCommRate(commRate);
 }
@@ -70,9 +74,9 @@ void LoadFile::readCompCost(TMASInformation* jobsInformation){
 		for(int j=0;j<jobsInformation->getPCount();j++){
 			_file >> inputDouble;
 			compCost[i][j] = inputDouble;
-			cout << compCost[i][j] << " ";
+			//		cout << compCost[i][j] << " ";
 		}
-		cout <<endl;
+		//		cout <<endl;
 	}
 	jobsInformation->setCompCost(compCost);
 }
@@ -98,6 +102,7 @@ void LoadFile::readTransDataVol(TMASInformation* jobsInformation){
 		_file >> tTo;
 		_file >> tmpTransDataVol;
 		transDataVol[tFrom][tTo] = tmpTransDataVol;
+		_tasks[tFrom].addSUCC(tTo);
 		_tasks[tTo].addPRED(tFrom);
 	}
 	jobsInformation->setTransDataVol(transDataVol);

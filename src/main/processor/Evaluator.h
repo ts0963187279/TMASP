@@ -10,13 +10,13 @@ class Evaluator{
 	int getEarlistStartTime(int);
 	TimeLine *getTimeLine();
  private :
-	int _cost;
+	double _cost;
 	int _thePCount;
 	int _theTCount;
 	Task *_tasks;
 	bool *_done;
-	int *_startTime;
-	int *_finishTime;
+	double *_startTime;
+	double *_finishTime;
 	int **_transDataVol;
 	double **_commRate;
 	double **_compCost;
