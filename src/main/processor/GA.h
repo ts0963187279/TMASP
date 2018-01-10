@@ -16,6 +16,7 @@ class GA {
  private:
 	double _mutationRate;
 	double _crossoverRate;
+	double * _groupFitness;
 	int ** _schedulingGroup;
 	int ** _mappingGroup;
 	int ** _crossoverSchedulingGroup;

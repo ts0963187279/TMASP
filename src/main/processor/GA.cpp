@@ -11,6 +11,7 @@ GA::GA(int groupSize, int maxGeneration, TMASInformation jobsInformation){
 	_mutationRate = 0.05;
 	_groupSize = groupSize;
 	int groupSizeCoefficient = 1 + _crossoverRate + _mutationRate;
+	_groupFitness = new double[groupSize];
 	_schedulingGroup = new int*[groupSize];
 	_mappingGroup = new int*[groupSize];
 	_selectionGroupSize = groupSize * (1 + _crossoverRate + _mutationRate);
@@ -36,9 +37,9 @@ int GA::run(){
 		mutation();
 		calculationFitness();	
 		selection();
-		cout << "Generation " << i << " Best : "<< _allFitness[0] <<endl;
+		//		cout << "Generation " << i << " Best : "<< _groupFitness[0] <<endl;
 	}
-	return _allFitness[0];
+	return _groupFitness[0];
 }
 void GA::initialGroup(){
 	for(int i=0;i<_groupSize;i++){
@@ -95,10 +96,18 @@ void GA::calculationFitness(){
 		}
 	}
 	for(int i=0;i<_selectionGroupSize;i++){
-		_allFitness[i] = _evaluator->getCost(_selectionSchedulingGroup[i],_selectionMappingGroup[i]);
+		_allFitness[i] = _evaluator->getCost(_selectionSchedulingGroup[i],_selectionMappingGroup[i]);		
+		//		cout << _allFitness[i]<<endl;
+		//		for(int j=0;j<_tCount;j++){
+		//			cout << _selectionSchedulingGroup[i][j] <<" ";
+		//		}
+		//		cout << endl;
 	}
 }
 void GA::selection(){
+	double maxFitness =0;
+	double *wheel = new double[_selectionGroupSize];
+	double accumulation = 0;
 	for(int i=0;i<_selectionGroupSize;i++){
 		for(int j=0;j<_selectionGroupSize-i-1;j++){
 			if(_allFitness[j] > _allFitness[j+1]){
@@ -110,13 +119,45 @@ void GA::selection(){
 				_selectionSchedulingGroup[j+1] = arrayTmp;
 				arrayTmp = _selectionMappingGroup[j];
 				_selectionMappingGroup[j] = _selectionMappingGroup[j+1];
-				_selectionMappingGroup[j+1] = arrayTmp;
+				_selectionMappingGroup[j+1] = arrayTmp;				
+			}			
+		}	
+	}
+	for(int i=0;i<_selectionGroupSize;i++){
+		maxFitness += _allFitness[i];
+	}
+	for(int i=0;i<_selectionGroupSize;i++){
+		wheel[i] = accumulation;
+		accumulation += maxFitness/_allFitness[i];
+	}
+	_schedulingGroup[0] = _selectionSchedulingGroup[0];
+	_mappingGroup[0] = _selectionMappingGroup[0];
+	_groupFitness[0] = _allFitness[0];
+	for(int i=1;i<_groupSize;i++){
+		double shot = (double)rand()/(RAND_MAX);
+		shot *=  accumulation;
+		//		cout << shot;
+		for(int j=0;j<_selectionGroupSize;j++){
+			if(shot < wheel[j]){
+				_schedulingGroup[i] = _selectionSchedulingGroup[j-1];
+				_mappingGroup[i] = _selectionMappingGroup[j-1];
+				_groupFitness[i] = _allFitness[j-1];
+				//		cout <<" "<< _groupFitness[i] <<endl;
+				break;
+			}
+			if(j+1 == _selectionGroupSize){
+				_schedulingGroup[i] = _selectionSchedulingGroup[j];
+				_mappingGroup[i] = _selectionMappingGroup[j];
+				_groupFitness[i] = _allFitness[j];
+				//				cout <<" "<< _groupFitness[i] <<endl;
 			}
 		}
-	}
-	for(int i=0;i<_groupSize;i++){
-		_schedulingGroup[i] =  _selectionSchedulingGroup[i];
-		_mappingGroup[i] = _selectionMappingGroup[i];
+		
+		//		cout << _groupFitness[i] <<endl;
+		//		for(int j=0;j<_tCount;j++){
+		//	cout << _schedulingGroup[i][j]<< " ";
+		//		}
+		//		cout <<endl;
 	}
 }
 void GA::crossover(){
@@ -197,9 +238,4 @@ void GA::crossoverOperator(int *aSS,int *aMS,int *bSS, int *bMS,int *cSS,int *cM
 			remain++;
 		}
 	}
-}
-void swapInt(int &a,int &b){
-	int iTmp = a;
-	a = b;
-	b = iTmp;
 }
