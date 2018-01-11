@@ -35,13 +35,35 @@ GA::GA(int groupSize, int maxGeneration, TMASInformation jobsInformation){
 }
 double GA::run(){
 	initialGroup();
+	double crossoverTime = 0;
+	double mutationTime = 0;
+	double calculationTime = 0;
+	double selectionTime = 0;
+	double start;
+	double end;
 	for(int i=0;i<_maxGeneration;i++){
+		start = clock();
 		crossover();
+		end = clock();
+		crossoverTime += end - start;
+		start = clock();
 		mutation();
-		calculationFitness();	
+		end = clock();
+		mutationTime += end - start;
+		start = clock();
+		calculationFitness();
+		end = clock();
+		calculationTime += end - start;
+		start = clock();
 		selection();
-		//		cout << "Generation " << i << " Best : "<< _groupFitness[0] <<endl;
+		end = clock();
+		selectionTime += end - start;
+		//		cout << "Generation " << i << " Best : "<< _globleBestFitness <<endl;
 	}
+	cout << "crossoverTime : "<< crossoverTime / CLOCKS_PER_SEC <<endl;
+	cout << "mutationTime : "<< mutationTime / CLOCKS_PER_SEC <<endl;
+	cout << "calculationTime : "<< calculationTime / CLOCKS_PER_SEC <<endl;
+	cout << "selectionTime : "<< selectionTime / CLOCKS_PER_SEC <<endl;
 	return _globleBestFitness;
 }
 void GA::initialGroup(){
@@ -100,8 +122,9 @@ void GA::calculationFitness(){
 	}
 	for(int i=0;i<_selectionGroupSize;i++){
 		_allFitness[i] = _evaluator->getCost(_selectionSchedulingGroup[i],_selectionMappingGroup[i]);
-		//		cout << _allFitness[i]<< " ";
+		cout << _allFitness[i]<< " ";
 	}
+	cout << endl;
 }
 void GA::selection(){
 	double maxFitness =0;
@@ -121,9 +144,9 @@ void GA::selection(){
 		wheel[i] = accumulation;
 		accumulation += maxFitness/_allFitness[i];
 	}
-	_schedulingGroup[0] = _globleBestSchedulingString;//_selectionSchedulingGroup[0];
-	_mappingGroup[0] = _globleBestMappingString;//_selectionMappingGroup[0];
-	_groupFitness[0] = _globleBestFitness;//_allFitness[0];
+	_schedulingGroup[0] = _globleBestSchedulingString;
+	_mappingGroup[0] = _globleBestMappingString;
+	_groupFitness[0] = _globleBestFitness;
 	for(int i=1;i<_groupSize;i++){
 		double shot = (double)rand()/(RAND_MAX);
 		shot *=  accumulation;
@@ -160,11 +183,16 @@ void GA::mutation(){
 		int randomA = rand() % _groupSize;
 		int randomPosition = rand() % _tCount;
 		int randomProcessor = rand() % _pCount;
+		int randomChangeA = rand() % _tCount;
+		int randomChangeB = rand() % _tCount;
 		for(int j=0;j<_tCount;j++){
 			_mutationSchedulingGroup[i][j] = _schedulingGroup[randomA][j];
 			_mutationMappingGroup[i][j] = _mappingGroup[randomA][j];
 		}
 		_mutationMappingGroup[i][randomPosition] = randomProcessor;
+		int tmp = _mutationSchedulingGroup[i][randomChangeA];
+		_mutationSchedulingGroup[i][randomChangeA] = _mutationSchedulingGroup[i][randomChangeB];
+		_mutationSchedulingGroup[i][randomChangeB] = tmp;
 	}
 }
 void GA::put(int * sS,int task, bool *isTaskExist, int &pointer){
