@@ -39,6 +39,7 @@ int main(){
 				wrost = ans;
 			if(ans < best)
 				best = ans;
+			ga.showBest();
 			cout << ans <<endl;
 			cout << time <<endl;
 		}

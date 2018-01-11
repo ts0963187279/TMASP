@@ -52,9 +52,9 @@ void TimeLine::showGraph(){
 		cout << "processor : " << i << "   ";
 		while(true){
 			cout<<"|"<<show->getStartTime();
-			cout<<" | "<<show->getTaskNumber();
-			cout<<" | "<<show->getFinishTime()<<"|";
-			cout << "-->";
+			cout<<"|"<<show->getTaskNumber();
+			cout<<"|"<<show->getFinishTime()<<"|";
+			cout << "->";
 			if(show->getNext() == NULL){
 				cout << "break";
 				break;

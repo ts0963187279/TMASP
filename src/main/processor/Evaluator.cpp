@@ -66,6 +66,7 @@ int Evaluator::getEarlistStartTime(int task){
 	}
 	return earliestStartTime;
 }
-TimeLine *Evaluator::getTimeLine(){
+TimeLine *Evaluator::getTimeLine(int *sS,int *mS){
+	getCost(sS,mS);
 	return _timeLine;
 }

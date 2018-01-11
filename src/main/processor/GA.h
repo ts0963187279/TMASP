@@ -14,6 +14,7 @@ class GA {
 	void mutation();
 	void put(int *,int, bool *,int &);
 	void crossoverOperator(int *,int *,int *,int *,int *,int *);
+	void showBest();
  private:
 	double _mutationRate;
 	double _crossoverRate;

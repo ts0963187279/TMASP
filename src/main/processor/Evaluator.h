@@ -8,7 +8,7 @@ class Evaluator{
 	double getCost(int *,int *);
 	bool arePREDDone(int);
 	int getEarlistStartTime(int);
-	TimeLine *getTimeLine();
+	TimeLine *getTimeLine(int *,int *);
  private :
 	double _cost;
 	int _thePCount;
