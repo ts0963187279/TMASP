@@ -10,6 +10,7 @@ TimeLine::TimeLine(int numberOfProcessor){
 		_processor[i]->setStartTime(0);
 		_processor[i]->setFinishTime(0);
 		_processor[i]->setTaskNumber(888);
+		_processor[i]->setNext(NULL);
 	}
 }
 void TimeLine::setTask(int task,int processor,double& start,double& finish){
@@ -19,6 +20,7 @@ void TimeLine::setTask(int task,int processor,double& start,double& finish){
 	double length = finish - start;
 	insert = new TimeNode;
 	insert->setTaskNumber(task);
+	int count = 0;
 	while(true){
 		if(now->getNext() == NULL){
 			now->setNext(insert);
@@ -28,6 +30,7 @@ void TimeLine::setTask(int task,int processor,double& start,double& finish){
 			}
 			insert->setStartTime(start);
 			insert->setFinishTime(finish);
+			insert->setNext(NULL);
 			break;
 		}
 		next = now->getNext();
@@ -40,8 +43,6 @@ void TimeLine::setTask(int task,int processor,double& start,double& finish){
 		}
 		now = next;
 		next = next->getNext();
-		//		showGraph();
-		//		cout << endl;
 	}
 }
 void TimeLine::showGraph(){
@@ -50,7 +51,9 @@ void TimeLine::showGraph(){
 		show = _processor[i];
 		cout << "processor : " << i << "   ";
 		while(true){
-			cout<<"|"<<show->getStartTime()<<" | "<<show->getTaskNumber()<<" | "<<show->getFinishTime()<<"|";
+			cout<<"|"<<show->getStartTime();
+			cout<<" | "<<show->getTaskNumber();
+			cout<<" | "<<show->getFinishTime()<<"|";
 			cout << "-->";
 			if(show->getNext() == NULL){
 				cout << "break";

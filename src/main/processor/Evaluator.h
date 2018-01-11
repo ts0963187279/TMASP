@@ -5,7 +5,7 @@ class TMASInformation;
 class Evaluator{
  public :
 	Evaluator(TMASInformation);
-	int getCost(int *,int *);
+	double getCost(int *,int *);
 	bool arePREDDone(int);
 	int getEarlistStartTime(int);
 	TimeLine *getTimeLine();

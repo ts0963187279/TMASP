@@ -11,7 +11,7 @@ Evaluator::Evaluator(TMASInformation jobsInformation){
 	_startTime = new double[_theTCount];
 	_finishTime = new double[_theTCount];
 }
-int Evaluator::getCost(int *schedulingString,int *mappingString){
+double Evaluator::getCost(int *schedulingString,int *mappingString){
 	_schedulingString = schedulingString;
 	_mappingString = mappingString;
 	_cost = 0;
@@ -36,10 +36,11 @@ int Evaluator::getCost(int *schedulingString,int *mappingString){
 			_startTime[schedulingString[i]] = startTime;
 			_done[schedulingString[i]] = true;
 		}else{
-			_cost = 1e9;
+			_cost = 1e4;
+			break;
 		}
 	}
-	return _cost + 1;
+	return _cost;
 }
 bool Evaluator::arePREDDone(int task){
 	list<int> PRED = _tasks[task].getPRED();

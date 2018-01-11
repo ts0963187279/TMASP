@@ -1,12 +1,13 @@
 using namespace std;
 class TMASInformation;
+class TimeLine;
 class Evaluator;
 class Task;
 class GA {
  public:
 	GA(int,int,TMASInformation);
 	void calculationFitness();
-	int run();
+	double run();
 	void initialGroup();
 	void selection();
 	void crossover();
@@ -17,6 +18,11 @@ class GA {
 	double _mutationRate;
 	double _crossoverRate;
 	double * _groupFitness;
+	TimeLine * _globleBestTimeLine;
+	TimeLine ** _timeLineGroup;
+	int * _globleBestSchedulingString;
+	int * _globleBestMappingString;
+	double _globleBestFitness;
 	int ** _schedulingGroup;
 	int ** _mappingGroup;
 	int ** _crossoverSchedulingGroup;
@@ -33,7 +39,7 @@ class GA {
 	TMASInformation *_jobsInformation;
 	Evaluator * _evaluator;
 	Task *_tasks;
-	int *_allFitness;
+	double *_allFitness;
 	int _tCount;
 	int _pCount;
 	int _count;
